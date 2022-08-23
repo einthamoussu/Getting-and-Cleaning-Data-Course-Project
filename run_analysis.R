@@ -1,33 +1,17 @@
 
 ###### Getting and Cleaning Data Course Project #####
 # This scripts has the following parts:
-#   - create folder for data
-#   - download zip file
-#   - unzip files
 #   - load in R the datasets
 #   - merge the datasets including subject data, and activity data
 #   - set column names of merged dataset
 #   - create required sub dataset of means and standard deviations
 #   - for this last dataset, change activity numbers to activity descriptions
 #   - create a third dataset, wiht requierd summarization
-#   - export to .csv the second and third dataset
+#   - export to .txt the grouped datasets required in part 5 of project
 #   - delete all variables
-#   - set original folder as default folder
 
 
-#create folder for data
-original_directory <- getwd()
-if(!dir.exists("FinalTask")){
-  dir.create("FinalTask")
-}
-setwd("./FinalTask")
 
-#download zip file
-fileurl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-download.file(fileurl, destfile = "FUCI_GAR_Datase.zip")
-
-#unzip compressd file
-unzip("FUCI_GAR_Datase.zip")
 
 
 #load in R the datasets
@@ -114,8 +98,7 @@ gropued_dataset_mean_std <- dataset_mean_std %>% group_by(activity_desc,subject)
 
 
 # DATA DELIVERY AND CHANGE WORKING DIRECTORY
-write.csv(dataset_mean_std,"dataset_with_means_and_std.csv")
-write.csv(gropued_dataset_mean_std,"dataset_with_means_and_std_average_calculated.csv")
+write.table(gropued_dataset_mean_std,"dataset_with_means_and_std_average_calculated.txt", row.names = FALSE)
 
-setwd(original_directory)
 rm(list = ls())
+
